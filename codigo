@@ -1,140 +1,154 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+
 #define PI 3.1416
 #define MAX_SIZE 100
 
-int operacion, matriz, transpuesta, i, j, n;
+int operacion;
 
-void transpuestaCalculo(int n, int matriz[MAX_SIZE][MAX_SIZE], int transpuesta[MAX_SIZE][MAX_SIZE]){
-	
-	int i, j;
-	for(i = 0; i < n; i++){
-		for(j = 0; j < n; j++){
-			
-			transpuesta[j][i] = matriz[i][j];
-			
-		}
-	}
-	
-	
+void transpuestaCalculo(int n, int matriz[MAX_SIZE][MAX_SIZE], int transpuesta[MAX_SIZE][MAX_SIZE]);
+void productoMatrices(int n, int j, int k, int matriz1[MAX_SIZE][MAX_SIZE], int matriz2[MAX_SIZE][MAX_SIZE], int productoMatriz[MAX_SIZE][MAX_SIZE]);
+
+int main() {
+    printf("Lista de operaciones:\n 1. Calcular el area y perimetro de un poligono regular.\n 2. Producto escalar de dos vectores.\n 3. Devolver transpuesta de una matriz cuadrada.\n 4. Calcular el producto de dos matrices.\n 5. Ingresar un array de enteros y comparar el array ordenado y el ingresado.\n 6. Ingresar un array de enteros y comparar el array ordenado y el ingresado siendo los numeros pares ordenados de forma ascendente y los impares de forma descendente.\n 7. Salir.\nOperacion a realizar: ");
+
+    scanf("%d", &operacion);
+
+    do {
+        switch (operacion) {
+            case 1: {
+                int l, numlad, perimetro;
+                float area;
+
+                printf("Ingrese el tamaño del lado: ");
+                scanf("%d", &l);
+
+                printf("Ingrese la cantidad de lados: ");
+                scanf("%d", &numlad);
+
+                perimetro = numlad * l;
+                area = (numlad * l * l) / (4 * tan(PI / numlad));
+
+                printf("El area del poligono es %f, y el perimetro es %d\n", area, perimetro);
+
+                printf("Operacion a realizar: ");
+                scanf("%d", &operacion);
+                break;
+            }
+
+            case 2: {
+                int n, a[MAX_SIZE], b[MAX_SIZE], productoEscalar = 0;
+
+                printf("Ingrese el tamaño de los vectores: ");
+                scanf("%d", &n);
+
+                for (int i = 0; i < n; i++) {
+                    printf("Ingrese los valores del vector a%d: ", i);
+                    scanf("%d", &a[i]);
+
+                    printf("Ingrese los valores del vector b%d: ", i);
+                    scanf("%d", &b[i]);
+
+                    productoEscalar += a[i] * b[i];
+                }
+
+                printf("El producto escalar de a y b es %d\n", productoEscalar);
+
+                printf("Operacion a realizar: ");
+                scanf("%d", &operacion);
+                break;
+            }
+
+            case 3: {
+                int n, matriz[MAX_SIZE][MAX_SIZE], transpuesta[MAX_SIZE][MAX_SIZE];
+
+                printf("Ingrese el tamaño de la matriz: ");
+                scanf("%d", &n);
+
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        printf("Ingrese el valor de la matriz en la posicion %d,%d: ", i, j);
+                        scanf("%d", &matriz[i][j]);
+                    }
+                }
+
+                transpuestaCalculo(n, matriz, transpuesta);
+
+                for (int j = 0; j < n; j++) {
+                    for (int i = 0; i < n; i++) {
+                        printf("%d ", transpuesta[j][i]);
+                    }
+                    printf("\n");
+                }
+
+                printf("Operacion a realizar: ");
+                scanf("%d", &operacion);
+                break;
+            }
+
+            case 4: {
+                int n, j, k, matriz1[MAX_SIZE][MAX_SIZE], matriz2[MAX_SIZE][MAX_SIZE], productoMatriz[MAX_SIZE][MAX_SIZE];
+
+                printf("Ingrese el tamaño de las matrices: ");
+                scanf("%d", &n);
+
+                printf("Ingrese los valores de la primera matriz: \n");
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        scanf("%d", &matriz1[i][j]);
+                    }
+                }
+
+                printf("Ingrese los valores de la segunda matriz:\n");
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        scanf("%d", &matriz2[i][j]);
+                    }
+                }
+
+                productoMatrices(n, j, k, matriz1, matriz2, productoMatriz);
+
+                printf("El producto de las matrices es:\n");
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        printf("%d ", productoMatriz[i][j]);
+                    }
+                    printf("\n");
+                }
+
+                printf("Operacion a realizar: ");
+                scanf("%d", &operacion);
+                break;
+            }
+
+            default:
+                printf("Operacion no valida.\n");
+                printf("Operacion a realizar: ");
+                scanf("%d", &operacion);
+                break;
+        }
+    } while (operacion != 5);
+
+    return 0;
 }
 
+void transpuestaCalculo(int n, int matriz[MAX_SIZE][MAX_SIZE], int transpuesta[MAX_SIZE][MAX_SIZE]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            transpuesta[j][i] = matriz[i][j];
+        }
+    }
+}
 
-int main(){
-
-	printf("Lista de operaciones:\n 1. Calcular el area y perimetro de cun poligono regular.\n 2. Producto escalar de dos vectores.\n 3. Devolver transpuesta de una matriz cuadrada.\n 4. Calcular el producto de dos matrices.\n 5. Ingresar un array de enteros y comparar el array ordenado y el ingresado.\n 6. Ingresar un array de enteros y comparar el array ordenado y el ingresado siendo los numeros pares ordenados de forma ascendente y los impares de forma descendente.\n 7. Salir.\nOperacion a realizar: ");
-	scanf("%d", &operacion);
-	
-	do{
-	
-		switch(operacion){
-		
-		case 1:
-			int l, numlad, perimetro;
-			float area;
-			printf("Ingrese el tamaño del lado: ");
-			scanf("%d", &l);
-			printf("Ingrese la cantidad de lados: ");
-			scanf("%d", &numlad);
-			
-			perimetro = numlad * l;
-			area = (numlad * l*l) / (4 * tan(PI / numlad));
-			
-			printf("El area del poligono es %f, y el perimetro es %d", area, perimetro);
-			
-			break;
-		
-		case 2:
-			int i = 0, n = 2,  a[2], b[2], a1, a2, b1, b2, productoEscalar;
-			
-			for(i = 0; i < n; i++){
-			
-				printf("Ingrese los valores del vector a%d: ", i);
-				scanf("%d", &a[2]);
-				printf("Ingrese los valores del vector b%d: ", i);
-				scanf("%d", &b[2]);
-				
-				if(i == 0)
-				{
-				
-				a1 = a[2];
-				b2 = b[2];
-				
-				}
-				else{
-				
-					a2 = a[2];
-					b2 = b[2];
-				}
-			}
-			productoEscalar = (a1 * b1) + (a2 + b2);
-			printf("El producto escalar de a y b es %d\n", productoEscalar);
-			
-			break;
-		
-		case 3:
-				printf("Ingrese el tamaño de la matriz: ");
-				scanf("%d", &n);
-				for(i = 0; i < n; i++){
-					for(j = 0; j < n; j++){
-				
-						printf("Ingrese el valor de la matriz en la posicion %d,%d: ", i, j);
-						scanf("%d", &matriz[i][j]);
-				
-					}
-				}
-			
-			void transpuestaCalculo();
-			
-			for(j = 0; j < n; j++){
-				for(i = 0; i < n; i++){
-				
-					printf("%d", matriz[i][j]);
-				
-				}
-				printf("\n");
-			}
-
-		
-			break;
-		
-		case 4:
-			int i, j, n = 2, matriz1[i][j], matriz2[i][j], productoMatriz[i][j];
-			
-			for(i = 0, i < n; i++){
-				for(j = 0, j < n; j++){
-				
-					printf("Ingrese el valor de la matriz 1 en la posicion %d,%d: ");
-					scanf("%d", &matriz1[i][j]);
-					
-					printf("Ingrese el valor de la matriz 2 en la posicion %d,%d: ");
-					scanf("%d", &matriz2[j][i]);
-				
-				}
-			
-				productoMatriz[i][j] += matriz1[i][j] * matriz2[i][j];
-				
-			}
-			
-			for(i = 0; i < n; i++){
-			
-				printf("%d", matriz3);
-				
-			}
-			
-			break;
-		
-		case 5:
-		
-		break;
-		
-		case 6:
-		
-		break;
-		default:
-		printf("Operacion no valida.");
-		break;
-		}
-	} while(operacion != 7);
+void productoMatrices(int n, int j, int k, int matriz1[MAX_SIZE][MAX_SIZE], int matriz2[MAX_SIZE][MAX_SIZE], int productoMatriz[MAX_SIZE][MAX_SIZE]){
+	for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+                productoMatriz[i][j] = 0;
+                for (int k = 0; k < n; k++) {
+                        productoMatriz[i][j] += matriz1[i][k] * matriz2[k][j];
+                
+            	}
+        }
+	}
 }
