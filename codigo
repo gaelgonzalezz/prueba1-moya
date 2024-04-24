@@ -11,7 +11,7 @@ void transpuestaCalculo(int n, int matriz[MAX_SIZE][MAX_SIZE], int transpuesta[M
 void productoMatrices(int n, int j, int k, int matriz1[MAX_SIZE][MAX_SIZE], int matriz2[MAX_SIZE][MAX_SIZE], int productoMatriz[MAX_SIZE][MAX_SIZE]);
 
 int main() {
-    printf("Lista de operaciones:\n 1. Calcular el area y perimetro de un poligono regular.\n 2. Producto escalar de dos vectores.\n 3. Devolver transpuesta de una matriz cuadrada.\n 4. Calcular el producto de dos matrices.\n 5. Ingresar un array de enteros y comparar el array ordenado y el ingresado.\n 6. Ingresar un array de enteros y comparar el array ordenado y el ingresado siendo los numeros pares ordenados de forma ascendente y los impares de forma descendente.\n 7. Salir.\nOperacion a realizar: ");
+    printf("Lista de operaciones:\n 1. Calcular el area y perimetro de un poligono regular.\n 2. Producto escalar de dos vectores.\n 3. Devolver transpuesta de una matriz cuadrada.\n 4. Calcular el producto de dos matrices.\n 5. Salir.\nOperacion a realizar: ");
 
     scanf("%d", &operacion);
 
@@ -152,3 +152,4 @@ void productoMatrices(int n, int j, int k, int matriz1[MAX_SIZE][MAX_SIZE], int 
         }
 	}
 }
+
